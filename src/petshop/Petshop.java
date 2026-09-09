@@ -11,6 +11,8 @@ public class PetShop {
         meuCachorro.comer(); // herdado de Animal
         meuCachorro.enterrarOsso(); // so o Cachorro sabe
         gatoDaVizinha.subirEmArvore(); // so o Gato sabe
+        Passaro passaroDoParque = new Passaro();
+        passaroDoParque.voar(); // so o Passaro sabe
         Peixe peixeDoAquario = new Peixe();
         peixeDoAquario.nadar(); // so o Peixe sabe
         // Polimorfismo: a MESMA chamada, comportamentos diferentes
@@ -18,7 +20,9 @@ public class PetShop {
         Animal a2 = gatoDaVizinha;
         a1.fazerSom(); // Au au!
         a2.fazerSom(); // Miau!
-        Peixe a3 = peixeDoAquario;
-        a3.fazerSom(); // Glub glub!
+        Passaro a3 = passaroDoParque;
+        a3.fazerSom(); // Piu piu!
+        Peixe a4 = peixeDoAquario;
+        a4.fazerSom(); // Glub glub!
     }
 }
