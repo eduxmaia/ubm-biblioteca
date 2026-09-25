@@ -11,6 +11,11 @@ public class Usuario {
         this.matricula = matricula;
     }
 
+    public Usuario(String nome, String matricula, String curso) {
+        this(nome, matricula);
+        this.curso = curso;
+    }
+
     public Usuario(String nome, String matricula, String curso, String email) {
         this(nome, matricula);
         this.curso = curso;
