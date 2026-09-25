@@ -40,4 +40,12 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void exibirFicha() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("Matrícula: " + getMatricula());
+        System.out.println("Curso: " + getCurso());
+        System.out.println("E-mail: " + getEmail());
+        System.out.println();
+    }
 }
