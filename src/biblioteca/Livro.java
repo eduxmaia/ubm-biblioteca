@@ -1,40 +1,39 @@
 package biblioteca;
 
-public class Livro {
-    private String titulo;
-    private String autor;
-    private int anoPublicacao;
-    private int numeroPaginas;
+public class Livro extends ItemAcervo {
+    private String autor; // so o que e exclusivo do livro
+    private int numeroPaginas; // titulo e ano vivem em ItemAcervo
 
     public Livro(String titulo, String autor) {
-        this.titulo = titulo;
+        super(titulo); // a superclasse constroi primeiro
         this.autor = autor;
     }
 
     public Livro(String titulo, String autor, int ano) {
-        this(titulo, autor); // encadeia: reaproveita o de cima
-        this.anoPublicacao = ano;
+        super(titulo, ano);
+        this.autor = autor;
     }
 
     public Livro(String titulo, String autor, int ano, int paginas) {
-        this(titulo, autor, ano);
+        this(titulo, autor, ano); // delega ao de cima, que chama super
         this.numeroPaginas = paginas;
     }
 
-    public String getTitulo() {
-        return titulo;
+    @Override
+    public int calcularPrazoDevolucao() {
+        return 14; // livro circula por duas semanas
+    }
+
+    @Override
+    public void exibirFicha() {
+        System.out.println("--- Livro ---");
+        super.exibirFicha(); // titulo e ano: a superclasse imprime
+        System.out.println("Autor : " + autor);
+        System.out.println("Paginas : " + numeroPaginas);
     }
 
     public String getAutor() {
         return autor;
-    }
-
-    public int getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
-    public void setAnoPublicacao(int anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
     }
 
     public int getNumeroPaginas() {
@@ -44,13 +43,4 @@ public class Livro {
     public void setNumeroPaginas(int numeroPaginas) {
         this.numeroPaginas = numeroPaginas;
     }
-
-    public void exibirFicha() {
-        System.out.println("Título: " + getTitulo());
-        System.out.println("Autor: " + getAutor());
-        System.out.println("Ano: " + getAnoPublicacao());
-        System.out.println("Páginas: " + getNumeroPaginas());
-        System.out.println();
-    }
-
 }
