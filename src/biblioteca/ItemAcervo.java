@@ -30,6 +30,8 @@ public class ItemAcervo {
         return anoPublicacao;
     }
 
+    
+
     public void setAnoPublicacao(int anoPublicacao) {
         this.anoPublicacao = anoPublicacao;
     }

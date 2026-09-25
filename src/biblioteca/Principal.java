@@ -16,8 +16,13 @@ public class Principal {
                                 "Engenharia de Software", "ana.souza@aluno.ubm.br");
                 Usuario u2 = new Usuario("Bruno Lima", "2026102", "Sistemas de Informacao");
                 u2.setEmail("bruno.lima@aluno.ubm.br");
+
+                Midia m1 = new Midia("A Vida e Bela", 1997, "DVD", 120);
+                Midia m2 = new Midia("O Poderoso Chefao", 1972, "Blu-ray", 175);
+
+
                 // POLIMORFISMO: variavel ItemAcervo, objeto de qualquer subclasse
-                ItemAcervo[] acervo = { l1, l2, l3, r1 };
+                ItemAcervo[] acervo = { l1, l2, l3, r1, m1, m2 };
                 System.out.println("=== UBM Biblioteca - acervo ===");
                 for (int i = 0; i < acervo.length; i++) {
                         acervo[i].exibirFicha(); // a ficha do objeto real

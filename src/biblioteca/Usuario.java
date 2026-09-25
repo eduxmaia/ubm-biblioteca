@@ -46,6 +46,8 @@ public class Usuario {
         this.email = email;
     }
 
+    
+
     public void exibirFicha() {
         System.out.println("Nome: " + getNome());
         System.out.println("Matrícula: " + getMatricula());
