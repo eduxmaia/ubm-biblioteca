@@ -30,6 +30,8 @@ public class Principal {
                                 "Engenharia de Software", "ana.souza@aluno.ubm.br");
                 Usuario u2 = new Usuario("Bruno Lima", "2026102", "Sistemas de Informacao");
                 u2.setEmail("bruno.lima@aluno.ubm.br");
+                Usuario u3 = new Usuario("Carlos Silva", "2026102", "Engenharia de Software");
+                System.out.println("u3.equals(u2) ? " + u3.equals(u2));
                 // O vetor ItemAcervo[] saiu de cena: o acervo agora e um objeto,
                 // e a lista mora dentro dele.
                 Acervo acervo = new Acervo();
@@ -39,11 +41,11 @@ public class Principal {
                 acervo.adicionar(r1);
                 acervo.adicionar(m1);
                 acervo.adicionar(j1);
-                
+
                 System.out.println("=== UBM Biblioteca - acervo ===");
                 for (ItemAcervo item : acervo.getItens()) {
-                item.exibirFicha();
-                System.out.println("Prazo : " + item.calcularPrazoDevolucao() + " dias");
+                        item.exibirFicha();
+                        System.out.println("Prazo : " + item.calcularPrazoDevolucao() + " dias");
                 }
                 // Membro static: pedido a CLASSE, nao a um objeto.
                 System.out.println("=== Itens cadastrados: " + ItemAcervo.getTotalItens() + " ===");
@@ -61,7 +63,7 @@ public class Principal {
                 // Mesmo titulo, outro ano: outra edicao, outro item.
                 Livro outraEdicao = new Livro("Dom Casmurro", "Machado de Assis", 2019);
                 System.out.println("acervo contem a edicao de 2019? " +
-                acervo.contem(outraEdicao));
+                                acervo.contem(outraEdicao));
                 // ----- BUSCA E REMOCAO -----
                 System.out.println("=== Busca ===");
                 ItemAcervo achado = acervo.buscarPorTitulo("central do brasil");
@@ -72,7 +74,8 @@ public class Principal {
                 System.out.println("Removeu a copia? " + acervo.remover(copia));
                 System.out.println("Itens no acervo: " + acervo.tamanho());
                 // O contador static conta objetos CRIADOS (ja sao 8, com copia e
-                // outraEdicao); a lista conta itens que ESTAO no acervo. Sao perguntas diferentes.
+                // outraEdicao); a lista conta itens que ESTAO no acervo. Sao perguntas
+                // diferentes.
                 System.out.println("Itens ja criados (static): " + ItemAcervo.getTotalItens());
                 acervo.adicionar(l1); // de volta, para o resto do programa
                 // ----- ORDENACAO -----
@@ -86,7 +89,7 @@ public class Principal {
                 System.out.println("=== Itens por tipo ===");
                 Map<String, Integer> porTipo = acervo.contarPorTipo();
                 for (String tipo : porTipo.keySet()) {
-                System.out.println(tipo + ": " + porTipo.get(tipo));
+                        System.out.println(tipo + ": " + porTipo.get(tipo));
                 }
                 // ----- USUARIOS POR MATRICULA: o Map como cadastro -----
                 // A matricula existe desde a Aula 2. Agora ela vira CHAVE.
@@ -99,7 +102,7 @@ public class Principal {
                 System.out.println("get de chave inexistente: " + usuarios.get("2026999"));
                 // Metodo default da interface + constante da interface.
                 System.out.println("Prazo de livro dentro da politica de "
-                + Emprestavel.PRAZO_MAXIMO_DIAS + " dias? " + l1.dentroDaPolitica());
+                                + Emprestavel.PRAZO_MAXIMO_DIAS + " dias? " + l1.dentroDaPolitica());
                 l1.devolver();
                 // instanceof com padrao de tipo: so o item do acervo tem ficha.
                 System.out.println("=== Situacao ===");
@@ -113,7 +116,7 @@ public class Principal {
                 emprestaveis.add(n1);
                 System.out.println("=== Emprestimos ===");
                 for (Emprestavel e : emprestaveis) {
-                e.emprestar(u1);
+                        e.emprestar(u1);
                 }
                 l1.emprestar(u2); // ja esta emprestado: o status impede
                 l1.devolver();
@@ -122,21 +125,34 @@ public class Principal {
                 // declara; item (tipo ItemAcervo) alcanca getStatus().
                 System.out.println("=== Situacao ===");
                 for (Emprestavel e : emprestaveis) {
-                if (e instanceof ItemAcervo item) {
-                System.out.println(item + " | " + item.getStatus().getDescricao());
-                } else {
-                // Nao e item do acervo: so da para perguntar o que a interface
-                // declara — e estaDisponivel() esta no contrato.
-                if (e.estaDisponivel()) {
-                System.out.println(e + " | disponivel");
-                } else {
-                System.out.println(e + " | em uso");
+                        if (e instanceof ItemAcervo item) {
+                                System.out.println(item + " | " + item.getStatus().getDescricao());
+                        } else {
+                                // Nao e item do acervo: so da para perguntar o que a interface
+                                // declara — e estaDisponivel() esta no contrato.
+                                if (e.estaDisponivel()) {
+                                        System.out.println(e + " | disponivel");
+                                } else {
+                                        System.out.println(e + " | em uso");
+                                }
+                        }
                 }
+
+                System.out.println("=== Itens disponiveis ===");
+                for (ItemAcervo item : acervo.listarDisponiveis()) {
+                        System.out.println(item);
                 }
+
+                System.out.println("=== Itens por status ===");
+                Map<StatusItem, Integer> porStatus = acervo.contarPorStatus();
+
+                for (StatusItem status : porStatus.keySet()) {
+                        System.out.println(status.getDescricao() + ": " + porStatus.get(status));
                 }
+
                 System.out.println("=== Usuarios ===");
                 for (Usuario u : usuarios.values()) {
-                u.exibirFicha();
+                        u.exibirFicha();
                 }
-}
+        }
 }

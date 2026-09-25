@@ -77,6 +77,32 @@ public class Acervo {
         return contagem;
     }
 
+
+    // ----- ITENS DISPONIVEIS -----
+    public List<ItemAcervo> listarDisponiveis() {
+        List<ItemAcervo> disponiveis = new ArrayList<>();
+
+        for (ItemAcervo item : itens) {
+            if (item.estaDisponivel()) {
+                disponiveis.add(item);
+            }
+        }
+
+        return disponiveis;
+    }
+
+    // ----- CONTAGEM POR STATUS -----
+    public Map<StatusItem, Integer> contarPorStatus() {
+        Map<StatusItem, Integer> contagem = new HashMap<>();
+
+        for (ItemAcervo item : itens) {
+            StatusItem status = item.getStatus();
+            contagem.put(status, contagem.getOrDefault(status, 0) + 1);
+        }
+
+        return contagem;
+    }
+
     // ----- ACESSO A LISTA -----
     // Copia defensiva: quem receber a lista pode mexer nela a vontade,
     // sem alterar o acervo. Devolver "itens" direto furaria o encapsulamento.
