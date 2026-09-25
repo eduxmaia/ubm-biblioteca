@@ -1,11 +1,15 @@
 package biblioteca;
 
+import java.util.Objects;
+
 /**
  * Superclasse ABSTRATA de todo item do acervo (livro, revista, midia, jornal).
  * Nao pode ser instanciada: "item generico" nao existe na biblioteca real.
  * Implementa Emprestavel: todo item do acervo sabe ser emprestado.
+ * Implementa Comparable: todo item sabe dizer se vem antes ou depois de outro
+ * (a ordem natural do acervo e por titulo, com desempate pelo ano).
  */
-public abstract class ItemAcervo implements Emprestavel {
+public abstract class ItemAcervo implements Emprestavel, Comparable<ItemAcervo> {
     // static final: constante da CLASSE. Nome em MAIUSCULAS, por convencao.
     public static final int PRAZO_PADRAO = 7;
     // static: pertence a classe, nao ao objeto. Um contador para todos.
@@ -14,6 +18,8 @@ public abstract class ItemAcervo implements Emprestavel {
     // subclasses: elas acessam pelos getters (norma do projeto).
     // final: recebe valor no construtor e nunca mais muda. Titulo e identidade.
     private final String titulo;
+    // A partir da Aula 5 o ano tambem compoe a identidade (ver equals):
+    // por isso o setter foi removido. O valor entra pelo construtor.
     private int anoPublicacao;
     private StatusItem status;
 
@@ -81,6 +87,44 @@ public abstract class ItemAcervo implements Emprestavel {
         return titulo + " (" + anoPublicacao + ")";
     }
 
+    // ----- IDENTIDADE: quando dois itens sao "o mesmo"? -----
+    // Object.equals() compara ENDERECO: dois objetos so sao iguais se forem
+    // o mesmo objeto. Para o acervo, dois itens sao o mesmo quando tem o
+    // mesmo tipo, o mesmo titulo e o mesmo ano. A receita tem quatro passos.
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) { // 1) mesmo objeto: igual
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false; // 2) nulo ou tipo diferente
+        }
+        ItemAcervo outro = (ItemAcervo) obj; // 3) agora o cast e seguro
+        return titulo.equals(outro.titulo) // 4) compara os atributos
+                && anoPublicacao == outro.anoPublicacao;
+    }
+
+    // REGRA: quem sobrescreve equals() sobrescreve hashCode() com os MESMOS
+    // atributos. Objetos iguais devem ter o mesmo hash — HashMap depende disso.
+    // REGRA: quem sobrescreve equals() sobrescreve hashCode() com os MESMOS
+    // atributos. Objetos iguais devem ter o mesmo hash — HashMap depende disso.
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulo, anoPublicacao);
+    }
+
+    // ----- ORDEM NATURAL: Comparable -----
+    // Devolve negativo se este item vem ANTES do outro, zero se empatam
+    // e positivo se vem DEPOIS. E o que Collections.sort() consulta.
+    @Override
+    public int compareTo(ItemAcervo outro) {
+        int porTitulo = titulo.compareTo(outro.titulo);
+        if (porTitulo != 0) {
+            return porTitulo; // titulos diferentes decidem
+        }
+        return Integer.compare(anoPublicacao, outro.anoPublicacao); // desempate
+    }
+
     // Metodo static: chamado pela CLASSE -> ItemAcervo.getTotalItens()
     public static int getTotalItens() {
         return totalItens;
@@ -93,11 +137,6 @@ public abstract class ItemAcervo implements Emprestavel {
 
     public int getAnoPublicacao() {
         return anoPublicacao;
-    }
-
-    // Ano pode ser informado depois (caso de l2 em Principal): setter mantido.
-    public void setAnoPublicacao(int anoPublicacao) {
-        this.anoPublicacao = anoPublicacao;
     }
 
     public StatusItem getStatus() {
