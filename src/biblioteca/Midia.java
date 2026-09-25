@@ -1,38 +1,47 @@
 package biblioteca;
 
+/**
+ * Uma midia (DVD, Blu-ray, CD) E UM item do acervo.
+ * Acrescenta formato e duracao. Prazo proprio: 3 dias.
+ */
 public class Midia extends ItemAcervo {
-    private String formato;
-    private int duracao;
+    private String formato; // "DVD", "Blu-ray", "CD"
+    private int duracaoMinutos;
 
-    public Midia(String titulo, int ano, String formato) {
+    public Midia(String titulo, int ano, String formato, int duracaoMinutos) {
         super(titulo, ano);
         this.formato = formato;
+        this.duracaoMinutos = duracaoMinutos;
     }
 
-    public Midia(String titulo, int ano, String formato, int duracao) {
-        super(titulo, ano);
-        this.formato = formato;
-        this.duracao = duracao;
-    }
-
+    // Midia circula rapido: prazo proprio, bem abaixo do padrao de 7 dias.
     @Override
     public int calcularPrazoDevolucao() {
         return 3;
     }
 
     @Override
+    public String getTipo() {
+        return "Midia";
+    }
+
+    @Override
     public void exibirFicha() {
-        System.out.println("--- Midia ---");
         super.exibirFicha();
-        System.out.println("Formato : " + getFormato());
-        System.out.println("Duracao : " + getDuracao() + " min");
+        System.out.println("Formato : " + formato);
+        System.out.println("Duracao : " + duracaoMinutos + " min");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - " + formato + ", " + duracaoMinutos + " min";
     }
 
     public String getFormato() {
         return formato;
     }
 
-    public int getDuracao() {
-        return duracao;
+    public int getDuracaoMinutos() {
+        return duracaoMinutos;
     }
 }

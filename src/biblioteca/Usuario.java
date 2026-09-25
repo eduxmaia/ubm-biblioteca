@@ -22,6 +22,14 @@ public class Usuario {
         this.email = email;
     }
 
+    public void exibirFicha() {
+        System.out.println("--- Usuario ---");
+        System.out.println("Nome : " + nome);
+        System.out.println("Matricula : " + matricula);
+        System.out.println("Curso : " + curso);
+        System.out.println("Email : " + email);
+    }
+
     public String getNome() {
         return nome;
     }
@@ -44,15 +52,5 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    
-
-    public void exibirFicha() {
-        System.out.println("Nome: " + getNome());
-        System.out.println("Matrícula: " + getMatricula());
-        System.out.println("Curso: " + getCurso());
-        System.out.println("E-mail: " + getEmail());
-        System.out.println();
     }
 }
